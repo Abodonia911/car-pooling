@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  email: String!
+  fullName: String!
+  universityId: String!
+  role: Role!
+  isEmailVerified: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum Role {
+  ADMIN
+  DRIVER
+  PASSENGER
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type LoginResponse {
+  accessToken: String!
+  email: String!
+  fullName: String!
+  role: Role!
+}
+
+type Query {
+  getUserByEmail(email: String!): User
+  getAllUsers: [User!]!
+}
+
+type Mutation {
+  register(data: CreateUserDto!): User!
+  login(data: LoginInput!): LoginResponse!
+  approveDriver(userId: String!): String!
+  RejectDriver(userId: String!): String!
+}
+
+input CreateUserDto {
+  email: String!
+  password: String!
+  fullName: String!
+  role: Role!
+  universityId: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
